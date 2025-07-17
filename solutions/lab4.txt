@@ -1,0 +1,4 @@
+cd Desktop/CHALLENGE/BankATM/
+egrep -r "Coordonator IT" | cut -f2 -d':' | cut -f1,2 -d' '
+egrep "Adrian Tomescu" ../angajati.txt | cut -f2 -d'-' 
+| cut -f2 -d' ' > ~/Desktop/CHALLENGE/phonenumber.txt

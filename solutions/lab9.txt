@@ -1,0 +1,4 @@
+sudo ip addr flush dev enp0s3
+sudo ip addr add 192.168.100.100/24 dev enp0s3
+sudo ip link set enp0s3 up
+sudo ip route add default via 192.168.100.1 dev enp0s3

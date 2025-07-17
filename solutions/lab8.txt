@@ -1,0 +1,12 @@
+cd ~/Desktop/CHALLENGE/workspace
+chmod +t ~/Desktop/CHALLENGE/workspace
+chmod 755 execute_me.sh        
+chmod u+s execute_me.sh        
+chmod 000 secret.txt        
+setfacl -m u:$USER:rwx secret.txt  
+chmod 400 backup.log 
+
+execute_me.sh = 4755
+secret.txt = 0070
+backup.log = 0400
+sum = 5225

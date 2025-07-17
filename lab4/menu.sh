@@ -33,8 +33,3 @@ do
 
     echo
 done
-
-
-
-
-

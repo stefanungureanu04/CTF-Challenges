@@ -1,0 +1,6 @@
+sudo groupadd -g 2025 family
+sudo mkdir -p /home/acasa
+sudo chmod 755 /home/acasa
+sudo useradd -u 2025 -g 2025 -s /bin/bash -d /home/acasa/ion_popescu ion_popescu
+sudo mkdir -p /home/acasa/ion_popescu
+sudo chown ion_popescu:family /home/acasa/ion_popescu

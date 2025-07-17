@@ -6,6 +6,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+# lab content
 CONTENT=(
     "=== Laborator 6 - Sistem de fisiere ===\n"
     "Tematici principale:"
@@ -15,22 +16,21 @@ CONTENT=(
     "- Inoduri si legaturi simbolice vs. hard links"
 )
 
-EASY=(
-    "Gaseste un fisier cu nume specific"
-    "Numarul total de fisiere in directorul home"
-    "Gaseste fisiere ascunse"
-)
+# exercise
+CHALLENGE=(
+    "=== CTF: Fisiere Linux ===\n"
+    "Intr-o ierarhie de fisiere dir se afla un fisier misterios,"
+    "accesat recent dar modificat acum mult timp."
+    "Acest fisier indeplineste urmatoarele conditii:"
+    " - A fost modificat cel mai demult (modification time)"
+    " - A fost accesat cel mai recent (access time)"
+    " - Are permisiunile r--r--r--"
+    "Toate fisierele din ierarhie contin cate 10 numere "
+    "intre 1 si 1000, ordonate aleator. Flag-ul cautat"
+    "este valoarea maxima din fisierul astfel identificat"
+    ""
+    "Scrieti rezultatul in fisierul ~/Desktop/CHALLENGE/number.txt"
 
-MEDIUM=(
-    "Gaseste fisiere mai mici de 1KB modificate in ultimele 24h"
-    "Numarul de procese ale utilizatorului curent"
-    "Afiseaza permisiunile tuturor fisierelor din /tmp"
-)
-
-HARD=(
-    "Gaseste un fisier cu dimensiune exacta si UID specific"
-    "Analiza unui fisier de log pentru pattern specific"
-    "Cauta fisiere cu setuid si afiseaza proprietarul"
 )
 
 # function for displaying content
@@ -45,28 +45,13 @@ show_lab_content() {
   fi
 }
 
-# function for displaying exercises options
-show_ctf_options() {
-    echo -e "${GREEN}Alege un exercitiu:${NC}\n"
-
-    echo "EASY:"
-    for i in "${!EASY[@]}"; do
-      echo "  $((i+1)). ${EASY[$i]}"
+# function for displaying the exercise
+show_ctf() {
+  if [ "${#CHALLENGE[@]}" -gt 0 ]; then
+    echo -e "${GREEN}${CHALLENGE[0]}${NC}"
+    for ((i = 1; i < ${#CHALLENGE[@]}; i++)); do
+      echo "${CHALLENGE[$i]}"
     done
     echo
-
-    echo "MEDIUM:"
-    for i in "${!MEDIUM[@]}"; do
-      echo "  $((i+1+${#EASY[@]})). ${MEDIUM[$i]}"
-    done
-    echo
-
-    echo "HARD:"
-    for i in "${!HARD[@]}"; do
-      echo "  $((i+1+${#EASY[@]}+${#MEDIUM[@]})). ${HARD[$i]}"
-    done
-    echo
-
-    echo "0. Inapoi la meniul principal"
-    echo
+  fi
 }

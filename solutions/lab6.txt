@@ -1,0 +1,2 @@
+find ~/Desktop/CHALLENGE/directory -type f -exec stat --format '%X %Y %n' {} \; | sort -k2 -n | head -10 | sort -k1 -nr | head -1
+sort -n < ~/Desktop/CHALLENGE/directory/dir1/file5.txt | tail -1 > ~/Desktop/CHALLENGE/number.txt

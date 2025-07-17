@@ -6,6 +6,7 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m'
 
+# lab content
 CONTENT=(
     "=== Laborator 10 - Scripturi bash ===\n"
     "Tematici principale:"
@@ -15,22 +16,19 @@ CONTENT=(
     "- Comenzi utile: read, echo, test, case, while"
 )
 
-EASY=(
-    "Gaseste un fisier cu nume specific"
-    "Numarul total de fisiere in directorul home"
-    "Gaseste fisiere ascunse"
-)
-
-MEDIUM=(
-    "Gaseste fisiere mai mici de 1KB modificate in ultimele 24h"
-    "Numarul de procese ale utilizatorului curent"
-    "Afiseaza permisiunile tuturor fisierelor din /tmp"
-)
-
-HARD=(
-    "Gaseste un fisier cu dimensiune exacta si UID specific"
-    "Analiza unui fisier de log pentru pattern specific"
-    "Cauta fisiere cu setuid si afiseaza proprietarul"
+# exercise
+CHALLENGE=(
+    "=== CTF: Scripturi Linux ===\n"
+    "Completati si rulati script.sh astfel incat sa genereze primele"
+    "10 numere prime din sirul lui Fibonacci si sa le oglindeasca."
+    "Sirul lui Fibonacci este dat de recurenta f(n+2) = f(n+1) + f(n) cu n[0]=0 si n[1]=1"
+    "Un numar este prim daca se divide doar pe sine insusi si pe 1."
+    "Oglinditul unui numar reprezinta numarul respectiv scris cu cifrele in ordine inversa (123 -> 321)"
+    "Afisarea numerelor se va face sub forma: f[0]-f[1]-f[2]-...f[n]"
+    ""
+    "Acordati drepturi de executie scriptului."
+    ""
+    "Scriptul trebuie scrie vectorul astfel obtinut in fisierul ~/Desktop/CHALLENGE/fibonacci.txt"
 )
 
 # function for displaying content
@@ -45,28 +43,13 @@ show_lab_content() {
   fi
 }
 
-# function for displaying exercises options
-show_ctf_options() {
-    echo -e "${GREEN}Alege un exercitiu:${NC}\n"
-
-    echo "EASY:"
-    for i in "${!EASY[@]}"; do
-      echo "  $((i+1)). ${EASY[$i]}"
+# function for displaying the exercise
+show_ctf() {
+  if [ "${#CHALLENGE[@]}" -gt 0 ]; then
+    echo -e "${GREEN}${CHALLENGE[0]}${NC}"
+    for ((i = 1; i < ${#CHALLENGE[@]}; i++)); do
+      echo "${CHALLENGE[$i]}"
     done
     echo
-
-    echo "MEDIUM:"
-    for i in "${!MEDIUM[@]}"; do
-      echo "  $((i+1+${#EASY[@]})). ${MEDIUM[$i]}"
-    done
-    echo
-
-    echo "HARD:"
-    for i in "${!HARD[@]}"; do
-      echo "  $((i+1+${#EASY[@]}+${#MEDIUM[@]})). ${HARD[$i]}"
-    done
-    echo
-
-    echo "0. Inapoi la meniul principal"
-    echo
+  fi
 }

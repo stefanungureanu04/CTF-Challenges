@@ -9,8 +9,7 @@ NC='\033[0m'
 INTRO=(
   "=== Platforma CTF - Sisteme de Operare ===\n"
   "Aceasta aplicatie permite testarea cunostintelor prin mini-challenge-uri CTF."
-  "Fiecare laborator include exercitii structurate pe trei nivele de dificultate:"
-  "- EASY, MEDIUM, HARD"
+  "Fiecare laborator include exercitii structurate pe diferite task-uri specifice"
   "Progresul este salvat automat si poate fi vizualizat in orice moment."
 )
 

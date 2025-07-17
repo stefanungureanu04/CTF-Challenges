@@ -11,30 +11,15 @@ RED='\033[0;31m'
 BLUE='\033[0;34m'
 NC='\033[0m'
 
-# function to show users progress
-show_progress() {
-
+show_progress_title_bar() {
     echo -e "${CYAN}╔═══════════════════════════════════════╗"
-    echo -e "║        Progresul tau actual          ║"
+    echo -e "║        Progres actual          ║"
     echo -e "╚═══════════════════════════════════════╝${NC}\n"
+}
 
-    total_done=0
-    total_all=0
-
-    for lab in {3..10}; 
-    do
-        echo -e "${BLUE}📘 Laboratorul $lab:${NC}"
-        for level in easy medium hard; 
-        do
-            count_done=$(grep -c "^lab${lab}_${level}[1-3]=1" "$PROGRESS_FILE")
-            count_all=$(grep -c "^lab${lab}_${level}[1-3]=" "$PROGRESS_FILE")
-            echo -e "  - ${level^^}: ${count_done}/${count_all}"
-
-            total_done=$((total_done + count_done))
-            total_all=$((total_all + count_all))
-        done
-        echo
-    done
+show_progress_percentage_bar() {
+    total_done="$1"
+    total_all="$2"
 
     percent=$(( (100 * total_done) / total_all ))
     filled=$(( percent / 5 ))
@@ -44,28 +29,66 @@ show_progress() {
     echo -e "${CYAN}Progres total: [${GREEN}${bar}${CYAN}] ${YELLOW}${percent}%${NC}"
 }
 
+# function to show users progress
+show_progress() {
+
+    show_progress_title_bar
+    
+    total_done=0
+    total_all=0
+
+    for it in {3..10}; 
+    do
+        echo -e "${BLUE}📘 Laboratorul $it:${NC}"
+        count_done=$(grep -c "^lab${it}=1" "$PROGRESS_FILE")
+        count_all=1
+
+        status=""
+
+        if [[ $count_done -ne 0 ]]; 
+        then
+            status="SOLVED✅"
+        else
+            status="UNSOLVED❌"
+        fi
+
+        echo -e "  - Status: $status"
+
+        total_done=$((total_done + count_done))
+        total_all=$((total_all + count_all))
+
+        echo
+    done
+
+    show_progress_percentage_bar "$total_done" "$total_all"
+}
+
+# function to reset the progress
+reset_progress() {
+
+    read -p "Apasati tasta R pentru a reseta progresul sau ENTER pentru a reveni la meniul principal: " input
+
+    if [[ "$input" == "R" || "$input" == "r" ]];
+    then
+        > "$PROGRESS_FILE"
+        
+        for lab in {3..10}; do
+                echo "lab${lab}=0" >> "$PROGRESS_FILE"
+        done
+
+        echo -e "${YELLOW}Progresul a fost resetat.${NC}"
+        echo
+        read -p "Apasati ENTER pentru a reveni..."
+    fi
+}
+
+
+# execution thread
 show_progress
 
 echo
 
-# reseting the progress upon pressing 'R' or 'r'
-read -p "Apasati tasta R pentru a reseta progresul sau ENTER pentru a reveni la meniul principal: " input
-
-if [[ "$input" == "R" || "$input" == "r" ]];
-then
-    > "$PROGRESS_FILE"
-    for lab in {3..10}; do
-        for level in easy medium hard; 
-        do
-            for i in {1..3}; do
-                echo "lab${lab}_${level}${i}=0" >> "$PROGRESS_FILE"
-            done
-        done
-    done
-    echo -e "${YELLOW}Progresul a fost resetat.${NC}"
-    echo
-    read -p "Apasa ENTER pentru a reveni..."
-fi
+reset_progress
 
 clear
 

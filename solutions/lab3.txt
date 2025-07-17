@@ -1,0 +1,2 @@
+cd Desktop/CHALLENGE/.directory/dir/
+cat file.txt | cut -f4 -d' ' | sed -n '73p' > ~/Desktop/CHALLENGE/flag.txt

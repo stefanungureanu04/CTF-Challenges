@@ -1,0 +1,31 @@
+TARGET=~/Desktop/CHALLENGE/fibonacci.txt
+mkdir -p "$(dirname "$TARGET")"
+
+is_prime() {
+    local num=$1
+    (( num < 2 )) && return 1
+    for (( i = 2; i*i <= num; i++ )); do
+        (( num % i == 0 )) && return 1
+    done
+    return 0
+}
+
+reverse_number() {
+    echo "$1" | rev
+}
+
+fibonacci=()
+f0=0
+f1=1
+
+while (( ${#fibonacci[@]} < 10 )); do
+    fn=$f0
+    f0=$f1
+    f1=$((fn + f1))
+    if is_prime "$fn"; then
+        reversed=$(reverse_number "$fn")
+        fibonacci+=("$reversed")
+    fi
+done
+
+(IFS=-; echo "${fibonacci[*]}") > "$TARGET"

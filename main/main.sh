@@ -11,8 +11,9 @@ mkdir -p "$PROGRESS_DIR"
 touch "$PROGRESS_FILE"
 
 # extracting data from infos file
-source "$DIR/utils/infos.sh"
-bash "$DIR/utils/init_progress.sh" "$PROGRESS_FILE"
+source "$DIR/utils/metadata.sh"
+bash "$DIR/utils/initialiser.sh" "$PROGRESS_FILE"
+
 
 # menu main loop
 clear
@@ -24,7 +25,7 @@ do
 
   show_options
 
-  read -p "Alege o optiune [1-10]: " opt
+  read -p "Alegeti o optiune [1-10]: " opt
   echo
 
   case $opt in
@@ -61,9 +62,10 @@ do
       bash "$DIR/../lab10/menu.sh" "$PROGRESS_FILE"
       ;;
     *)
-      echo -e "${YELLOW}Optiune invalida. Te rugam incearca din nou.${NC}"
+      echo -e "${YELLOW}Optiune invalida. Va rugam incearcati din nou.${NC}"
       sleep 1
       clear
       ;;
   esac
 done
+

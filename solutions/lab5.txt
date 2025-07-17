@@ -1,0 +1,13 @@
+# exemplu:
+        # 4315 pts/1    00:00:00 ping 82.137.12.53 -i 4 -c 300
+        # 4316 pts/1    00:00:00 ping 82.137.12.53 -i 2 -c 200
+        # 4317 pts/1    00:00:00 ping 82.137.12.53 -i 3 -c 300
+        # 4318 pts/1    00:00:00 ping 82.137.12.53 -i 4 -c 100
+
+pgrep -fping
+kill 32638
+kill 32639
+kill 32636
+kill 32641
+pgrep ping
+pgrep ping > ~/Desktop/CHALLENGE/pid.txt
